@@ -1,9 +1,6 @@
-
-
 const inputBox = document.getElementById("input-box");
 const button = document.querySelector("button");
 const list = document.getElementById("list-container");
-
 
 function addTask(){
     if(inputBox.value === ''){
@@ -46,7 +43,7 @@ function addTask(){
 
         taskItemRow1.appendChild(taskButtons);
         li.appendChild(taskItemRow1);
-        // li.appendChild(taskButtons);
+
 
         
         li.appendChild(taskItemRow2);
@@ -56,17 +53,9 @@ function addTask(){
 
 const startTimer = (duration, taskElement) => {
     let timer = 5;
-    // let taskItemRow2 = document.createElement("div");
-    // taskItemRow2.className = "task-item-row";
-
     // let timer = duration * 60;
     let timerDiv = document.createElement("div");
     timerDiv.className = "timer";
-
-    // taskItemRow2.appendChild(timerDiv);
-
-
-    
     taskElement.appendChild(timerDiv);
 
     const interval = setInterval(() => {
@@ -81,7 +70,6 @@ const startTimer = (duration, taskElement) => {
         if (--timer < 0) {
             timerDiv.textContent = "Complete!";
             clearInterval(interval);
-            // Optionally add a notification or alert here
         }
     }, 1000);
 }
@@ -101,11 +89,19 @@ button.addEventListener("click", addTask);
 function saveData(){
     localStorage.setItem("data", list.innerHTML);
 }
+
 function showTask(){
     const savedData = localStorage.getItem("data");
     if(savedData){
         list.innerHTML = savedData;
+
+        // Reattach event listeners for each focus button
+        const focusButtons = document.querySelectorAll('.focus-btn');
+        focusButtons.forEach(button => {
+            button.addEventListener('click', () => startTimer(5, button.parentElement.parentElement.nextElementSibling));
+        });
     }
 }
+
 window.addEventListener("load", showTask);
 
