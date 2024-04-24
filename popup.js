@@ -1,6 +1,6 @@
-const inputBox = document.getElementById("input-box");
+const inputBox = document.querySelector("#input-box");
 const button = document.querySelector("button");
-const list = document.getElementById("list-container");
+const list = document.querySelector("#list-container");
 
 function addTask(){
     if(inputBox.value === ''){
@@ -12,27 +12,21 @@ function addTask(){
         let taskItemRow1 = document.createElement("div");
         taskItemRow1.className = "task-item-row";
 
-
         let taskTitle = document.createElement("div");
         taskTitle.innerHTML = inputBox.value;
         taskTitle.className = "task-text";
         taskItemRow1.appendChild(taskTitle);
 
         let taskButtons = document.createElement("div");
-
-
         
         list.appendChild(li);
         inputBox.value = '';
+
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.className = "delete-btn";
         taskButtons.className = "task-buttons";
         taskButtons.appendChild(deleteButton);
-       
-        // Timers container
-        let taskItemRow2 = document.createElement("div");
-        taskItemRow2.className = "timer-item-row";
 
         let focusButton = document.createElement("button");
         focusButton.textContent = "Focus";
@@ -44,16 +38,17 @@ function addTask(){
         taskItemRow1.appendChild(taskButtons);
         li.appendChild(taskItemRow1);
 
-
-        
+        // Timers container
+        let taskItemRow2 = document.createElement("div");
+        taskItemRow2.className = "timer-item-row";
         li.appendChild(taskItemRow2);
     }
     saveData();
 }
 
-const startTimer = (duration, taskElement) => {
+const startTimer = (duration, taskElement, taskId) => {
     let timer = 5;
-    // let timer = duration * 60;
+    //let timer = duration * 60;
     let timerDiv = document.createElement("div");
     timerDiv.className = "timer";
     taskElement.appendChild(timerDiv);
@@ -73,6 +68,7 @@ const startTimer = (duration, taskElement) => {
         }
     }, 1000);
 }
+
 
 list.addEventListener("click", (e)=>{
     if(e.target.tagName === "LI"){
@@ -103,5 +99,6 @@ function showTask(){
     }
 }
 
-window.addEventListener("load", showTask);
+
+ window.addEventListener("load", showTask);
 
